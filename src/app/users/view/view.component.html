@@ -1,0 +1,38 @@
+<h3>User Details</h3>
+<div class="container">
+    <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Category</th>
+            <th>Technology</th>
+            <th>Profile Picture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let view of viewDetails">
+            <td>{{ view.name }}</td>
+            <td>{{ view.gender }}</td>
+            <td>{{ view.email }}</td>
+            <td>{{ view.mobile }}</td>
+            <td>{{ view.category }}</td>
+            <td>{{ view.tech }}</td>
+            <td>{{ view.url }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>
+
+
+
+
+
+
+
+ 
+
+  

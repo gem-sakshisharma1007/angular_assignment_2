@@ -1,0 +1,128 @@
+<div class="container " >
+    <h2 style> User Form</h2>
+    <form [formGroup]="userForm" >
+      <!-- Name field -->
+      <div class="form-group ">
+        <strong><label for="name">Name:</label></strong>
+        <input type="text" id="name" formControlName="name" class="form-control" required>
+        <div *ngIf="userForm.get('name')?.invalid && (userForm.get('name')?.dirty || userForm.get('name')?.touched)">
+          <div *ngIf="userForm.get('name')?.hasError('required')">Name is required.</div>
+          <div *ngIf="userForm.get('name')?.hasError('pattern')">Invalid name format.</div>
+          <div *ngIf="userForm.get('name')?.hasError('minlength')">Name should be at least 2 characters long.</div>
+          <div *ngIf="userForm.get('name')?.hasError('maxlength')">Name should not exceed 30 characters.</div>
+        </div>
+      </div>
+
+  
+     <div>
+      <strong><label for="gender">Gender:</label></strong>
+      <div>
+        <input type="radio" id="male" name="gender" value="Male" formControlName="gender">
+        <label for="male">Male</label>
+      </div>
+      <div>
+        <input type="radio" id="female" name="gender" value="Female" formControlName="gender">
+        <label for="female">Female</label>
+      </div>
+     </div>
+  
+      <!-- Email field -->
+      <div class="form-group">
+        <strong><label for="email">Email:</label></strong>
+        <input type="email" id="email" formControlName="email" class="form-control" required>
+        <div *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+          <div *ngIf="userForm.get('email')?.hasError('required')">Email is required.</div>
+          <div *ngIf="userForm.get('email')?.hasError('pattern')">Invalid email format.</div>
+        </div>
+      </div>
+  
+       <!-- Mobile field -->
+       <div class="form-group">
+        <strong><label for="mobile">Mobile:</label></strong>
+        <input type="text" id="mobile" formControlName="mobile" class="form-control" required>
+        <div *ngIf="userForm.get('mobile')?.invalid && (userForm.get('mobile')?.dirty || userForm.get('mobile')?.touched)">
+          <div *ngIf="userForm.get('mobile')?.hasError('required')">Mobile number is required.</div>
+          <div *ngIf="userForm.get('mobile')?.hasError('pattern')">Invalid mobile number format.</div>
+        </div>
+      </div>
+  
+      <div>
+      <strong><label for="category">Category:</label></strong>
+      <select id="category" formControlName="category">
+        <option value="">Select category</option>
+        <option value="General">General</option>
+        <option value="SC/ST">SC/ST</option>
+        <option value="OBC">OBC</option>
+      </select>
+     </div>
+
+
+     <!-- Technology Field -->
+     <strong><label>Technologies:</label></strong>
+     <div formArrayName="technology" *ngFor="let tech of getControls(); let i = index;">
+        <label>
+          <input type="checkbox" [formControlName]="i">
+          {{ technologies[i] }}
+        </label>
+      </div>
+    <!-- Profile Picture field -->
+    
+    <div class="form-group">
+        <strong><label for="profilePicture">Profile Picture:</label></strong>
+        <input type="file" id="profilePicture" name="profilePicture" accept="image/jpeg, image/jpg, image/png"
+          (change)="onFileSelected($event)" formControlName="profilePicture" />
+        <div *ngIf="isProfilePictureInvalid" class="validation-message">
+          Only JPEG, JPG, and PNG file types are allowed.
+        </div>
+      </div>
+      <div>
+        <button type="button" class=" btn btn-primary" [disabled]="userForm.invalid"  (click)="openModal(content)">Preview</button>
+
+      </div>
+  
+      
+     
+
+
+    </form>
+     <!--Modal template -->
+    <ng-template #content let-modal >
+      <div class="modal-header">
+        <h4 class="modal-title">User Information</h4>
+      </div>
+      <div class="modal-body">
+        <p><strong>Name:</strong> {{ formData.name }}</p>
+        <p><strong>Gender:</strong> {{ formData.gender }}</p>
+        <p><strong>Email:</strong> {{ formData.email }}</p>
+        <p><strong>Mobile:</strong> {{ formData.mobile }}</p>
+        <p><strong>Category:</strong> {{ formData.category }}</p>
+        <p><strong>Technology:</strong><ul>
+          <li *ngFor="let tech of selectedOrderIds">
+            {{ tech }}
+          </li>
+        </ul>
+        
+        <div *ngIf="selectedFile">
+          <p><strong>Profile Picture:</strong></p>
+          <img [src]="selectedFile" alt="Selected Image" height="100" width="100">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="saveData()">Submit</button>
+        <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </ng-template>
+</div>
+
+
+
+
+
+
+
+
+    
+
+
+
+    

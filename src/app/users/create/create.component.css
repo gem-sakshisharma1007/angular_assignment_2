@@ -1,0 +1,11 @@
+.container{
+    background-color:palegoldenrod;
+    min-height: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+      
+}
+
+label{
+    margin-top: 10px;
+}
